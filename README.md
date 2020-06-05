@@ -16,7 +16,7 @@ If you are using a module bundler, you can import it with:
 
 All the check functions return a promise, or optionally you can supply a callback function as well. 
 
-Function signatures: 
+    // Function signatures: 
     // check peer connection capabilities
     checkPeerConnection(iceConfiguration,verbose[boolean],callback) // all the params are optional. Verbose creates logs
     // Check media capture
