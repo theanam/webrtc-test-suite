@@ -1,0 +1,15 @@
+{
+  "name": "webrtc-test-suite",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:theanam/webrtc-test-suite.git",
+  "author": "Anam Ahmed <anam.ahmed.a@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^1.12.4"
+  },
+  "scripts": {
+    "watch":"parcel watch index.js",
+    "build":"parcel build index.js"
+  }
+}
