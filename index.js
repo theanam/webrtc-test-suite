@@ -1,9 +1,9 @@
 import checkPeerConnection from "./checks/peerConnection";
-import testMediaCapture from "./checks/mediaCapture";
+import checkMediaCapture from "./checks/mediaCapture";
 
 let _RTCTest = {
     checkPeerConnection,
-    testMediaCapture
+    checkMediaCapture
 }
 if(typeof window !== "undefined") window._RTCTest = _RTCTest;
 

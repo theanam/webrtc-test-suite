@@ -40,8 +40,8 @@ function checkPeerConnection(rtcConfig = {}, verbose = false, callback){
                 if(msg.data === _ts.toString()){
                     if(callback) return callback(true);
                     let _rcvTS = Date.now();
-                    pc1.close();
-                    pc2.close();
+                    rtc1.close();
+                    rtc2.close();
                     return resolve(_rcvTS - _ts);
                 }
                 _err(new Error("message integrity failure"));
