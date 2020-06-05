@@ -1,4 +1,11 @@
-function testMediaCapture(contrains = {video: true, audio: true},verbose = false,callback){
+/**
+ * Tests media capture by calling getUserMedia and analyzing the media stream
+ * Created by Anam Ahmed (https://anam.co)
+ * @param {MediaStreamConstraints} constraints 
+ * @param {Boolean} verbose
+ * @param {Function} callback
+ */
+function testMediaCapture(contraints = {video: true, audio: true},verbose = false, callback){
     return new Promise((resolve,reject)=>{
         function _err(err){
             if(callback) return callback(false);
@@ -8,7 +15,7 @@ function testMediaCapture(contrains = {video: true, audio: true},verbose = false
             if(!verbose) return false;
             console.log(...arguments);
         }
-        navigator.mediaDevices.getUserMedia(contrains)
+        navigator.mediaDevices.getUserMedia(contraints)
         .then(stream=>{
             _log("🏞  Got Media stream");
             if(stream.active){
