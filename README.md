@@ -21,5 +21,7 @@ All the check functions return a promise, or optionally you can supply a callbac
     checkPeerConnection(iceConfiguration,verbose[boolean],callback) // all the params are optional. Verbose creates logs
     // Check media capture
     checkMediaCapture(mediaConstraints,verbose[boolean],callback) // all the params are optional. Verbose creates logs
+    // make sure testDownload is a file and can be downloaded with AJAX (this test uses fetch)
+    checkInternetSpeed(testDownload,verbose[boolean],callback)
 
 # A better documentation and npm package comming soon

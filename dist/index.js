@@ -289,6 +289,67 @@ function checkMediaCapture() {
 
 var _default = checkMediaCapture;
 exports.default = _default;
+},{}],"checks/internet.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+/**
+ * Test Internet download speed
+ * @param {checkFile} String, a file on the internet, that can be downloaded via AJAX (has access-control-allow-origin header)
+ * @param {verbose} Boolean, prints out logs
+ * @param {callback} Function, gets called once the function finishes or fails
+ * @returns Promise
+ */
+function checkInternetSpeed(checkerFile) {
+  var verbose = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+  var callback = arguments.length > 2 ? arguments[2] : undefined;
+  return new Promise(function (resolve, reject) {
+    if (!checkerFile) reject(new Error("Please provide a filename to download and check internet"));
+
+    function _log() {
+      var _console;
+
+      if (!verbose) return false;
+
+      (_console = console).log.apply(_console, arguments);
+    }
+
+    function _err(err) {
+      if (callback) return callback(false);
+      return reject(err);
+    }
+
+    var startTime = Date.now();
+
+    _log("\uD83E\uDDF2  Fetching the test file");
+
+    fetch("".concat(checkerFile, "?rtccheckertimestamp_noconflict=").concat(startTime)).then(function (resp) {
+      return resp.blob();
+    }).then(function (bl) {
+      _log("\uD83D\uDE07  Test file fetched successfully");
+
+      var endTime = Date.now();
+      var timeDiff = (endTime - startTime) / 1000; //convert millesecond diff to seconds
+
+      var fileSize = bl.size * 8; // bits
+
+      var bps = fileSize / timeDiff;
+      var mbps = (bps / 1048576).toFixed(2); // 1024*1024
+
+      _log("\uD83C\uDF0E  Internet speed observed during fetch: ".concat(mbps, " Mbps"));
+
+      if (callback) return callback(mbps);
+      return resolve(mbps);
+    }).catch(_err);
+  });
+}
+
+var _default = checkInternetSpeed;
+exports.default = _default;
 },{}],"index.js":[function(require,module,exports) {
 "use strict";
 
@@ -301,16 +362,19 @@ var _peerConnection = _interopRequireDefault(require("./checks/peerConnection"))
 
 var _mediaCapture = _interopRequireDefault(require("./checks/mediaCapture"));
 
+var _internet = _interopRequireDefault(require("./checks/internet"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var _RTCTest = {
   checkPeerConnection: _peerConnection.default,
-  checkMediaCapture: _mediaCapture.default
+  checkMediaCapture: _mediaCapture.default,
+  checkInternetSpeed: _internet.default
 };
 if (typeof window !== "undefined") window._RTCTest = _RTCTest;
 var _default = _RTCTest;
 exports.default = _default;
-},{"./checks/peerConnection":"checks/peerConnection.js","./checks/mediaCapture":"checks/mediaCapture.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./checks/peerConnection":"checks/peerConnection.js","./checks/mediaCapture":"checks/mediaCapture.js","./checks/internet":"checks/internet.js"}],"node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -338,7 +402,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60924" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51805" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
