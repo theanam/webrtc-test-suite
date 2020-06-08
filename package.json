@@ -6,10 +6,10 @@
   "author": "Anam Ahmed <anam.ahmed.a@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "parcel": "^1.12.4"
+    "parcel-bundler": "^1.12.4"
   },
   "scripts": {
-    "watch":"parcel watch index.js",
-    "build":"parcel build index.js"
+    "watch": "parcel watch index.js",
+    "build": "parcel build index.js"
   }
 }
