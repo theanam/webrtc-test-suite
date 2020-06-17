@@ -21,6 +21,6 @@
     "watch": "parcel watch index.js",
     "build": "parcel build index.js",
     "watch-example": "parcel test/index.html -d test-temp",
-    "build-example": "parcel test/index.html -d test-dist"
+    "build-example": "parcel build test/index.html -d test-dist"
   }
 }
