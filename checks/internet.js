@@ -25,7 +25,7 @@ function checkInternetSpeed(checkerFile, verbose = false, callback){
                 let endTime  = Date.now();
                 let timeDiff = (endTime - startTime)/1000; //convert millesecond diff to seconds
                 let fileSize = bl.size * 8; // bits
-                let bps      = fileSize/timeDiff;
+                let bps      = fileSize / timeDiff;
                 let mbps     = (bps / 1048576).toFixed(2); // 1024*1024
                 _log(`🌎  Internet speed observed during fetch: ${mbps} Mbps`);
                 if(callback) return callback(mbps);

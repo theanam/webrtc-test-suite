@@ -3,13 +3,24 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:theanam/webrtc-test-suite.git",
+  "homepage": "https://github.com/theanam/webrtc-test-suite",
   "author": "Anam Ahmed <anam.ahmed.a@gmail.com>",
   "license": "MIT",
+  "keywords": [
+    "webrtc",
+    "testing",
+    "browser compatibility",
+    "getusermedia",
+    "rtcpeerconnection",
+    "hardware test"
+  ],
   "devDependencies": {
     "parcel-bundler": "^1.12.4"
   },
   "scripts": {
     "watch": "parcel watch index.js",
-    "build": "parcel build index.js"
+    "build": "parcel build index.js",
+    "watch-example": "parcel test/index.html -d test-temp",
+    "build-example": "parcel test/index.html -d test-dist"
   }
 }
