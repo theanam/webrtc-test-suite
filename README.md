@@ -5,17 +5,20 @@ Testing suite for Real life webRTC capability testing
 
 ## How to use: 
 To install the package use this command: 
-
+### Module Bundler
 ```sh
 yarn add webrtc-test-suite
 ```
-
-Include it in the project and you will get a global object `_RTCTest`. 
-
 If you are using a module bundler, you can import it with: 
 ```js
-import _test from "webrtc-test-suite";
+import _RTCTest from "webrtc-test-suite";
 ```
+### Include JS file 
+Add this to your HTML file:
+```html
+<script src="https://unpkg.com/webrtc-test-suite@1.0.1/dist/index.js"></script>
+```
+Yoou will get a global object called: `_RTCTest`
 
 All the check functions return a promise, or optionally you can supply a callback function as well. 
 ```js
