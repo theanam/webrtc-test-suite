@@ -16,7 +16,7 @@ import _RTCTest from "webrtc-test-suite";
 ### Include JS file 
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@1.0.1/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@1.0.2/dist/index.js"></script>
 ```
 Yoou will get a global object called: `_RTCTest`
 
@@ -30,7 +30,9 @@ checkMediaCapture(mediaConstraints,verbose[boolean],callback) // all the params 
 // make sure testDownload is a file and can be downloaded with AJAX (this test uses fetch)
 checkInternetSpeed(testDownload,verbose[boolean],callback) // testDownload is required, return value in Mbps (Megabits Per second)
 ```
-## A better documentation and npm package comming soon
+## A better documentation is comming soon
 
 *** 
+This package is released under the MIT license, feel free to contribute.
+
 made with 🖤 and JavaScript.
