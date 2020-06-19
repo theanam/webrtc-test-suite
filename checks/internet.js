@@ -2,9 +2,10 @@ export default function checkInternetSpeed(checkerFile, verbose = false){
     return new Promise((resolve,reject)=>{
         if(!checkerFile) return reject(new Error("Please provide a filename to download and check internet"));
         if(typeof fetch !== "function") return reject(new Error("Fetch API support is required for this check"));
-        let startTime = Date.now();
         verbose && console.log(`[internet-connection]: Will fetch the check file`);
-        fetch(`${checkerFile}?rtccheckertimestamp_noconflict=${startTime}`)
+        let startTime = Date.now();
+        let glue = /\?/.test(checkerFile)?"&":"?"; // if the file path already has query params
+        fetch(`${checkerFile}${glue}rtccheckertimestamp_noconflict=${startTime}`) // to avoid cache
             .then(resp=>resp.blob())
             .then(bl=>{
                 verbose && console.log(`[internet-connection]: Fetched the checker file`);
