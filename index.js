@@ -4,8 +4,9 @@ import checkInternetSpeed from "./checks/internet";
 import countDevies from "./checks/count_devices";
 // Utils
 import flat from "./utils/simplify_promise";
-import * as av from "./utils/dom_tag_tools";
+import * as dom from "./utils/dom_tag_tools";
 import getUserMedia from "./utils/user_media";
+import * as mediaStream from "./utils/media_stream_tools";
 // Exports
 let _rtc = {
     checkPeerConnection,
@@ -20,9 +21,9 @@ let _rtc = {
     getUserMediaSilent(){return flat(getUserMedia(...arguments))},
     utils: {
         flat,
-        av
+        dom,
+        stream: mediaStream
     }
 }
 if(typeof window !== "undefined") window._rtc = _rtc;
-
 export default _rtc;

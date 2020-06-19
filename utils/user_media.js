@@ -5,7 +5,7 @@ export default function getUserMedia(constraints){
         const _success = (stream)=> resolve(stream);
         const _err     = (err)=> reject(err);
         if(navigator.mediaDevices.getUserMedia){
-            gum = navigator.mediaDevices.getUserMedia(constraints)
+            gum = navigator.mediaDevices.getUserMedia(constraints);
         }
         else if(navigator.getUserMedia){
             navigator.getUserMedia(constraints, _success, _err);

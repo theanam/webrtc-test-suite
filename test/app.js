@@ -9,7 +9,8 @@ function init(){
     _rtc.getUserMediaSilent({video: true})
         .then(stream=>{
             if(!stream) return console.log("No stream could be retrieved");
-            _rtc.utils.av.addStreamToDOM(document.querySelector(".vid"),stream).play();
+            _rtc.utils.dom.addStreamToDOM(document.querySelector(".vid"),stream).play();
+            setTimeout(()=>_rtc.utils.stream.stopMediaStreamSilent(stream),4000);
         });
 }
 
