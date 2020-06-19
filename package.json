@@ -19,7 +19,9 @@
     "real time"
   ],
   "devDependencies": {
-    "parcel-bundler": "^1.12.4"
+    "jquery": "^3.5.1",
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.26.8"
   },
   "scripts": {
     "watch": "parcel watch index.js",
@@ -27,7 +29,7 @@
     "run-example": "parcel test/index.html -d test-temp",
     "build-example": "parcel build test/index.html -d test-dist"
   },
-  "browserlist":[
+  "browserlist": [
     "defaults",
     "not IE 11",
     "not IE_Mob 11"
