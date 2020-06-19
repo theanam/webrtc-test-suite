@@ -1,5 +1,14 @@
-# webrtc-test-suite
-Real life WebRTC capability testing and utilities.
+# Real life Capability testing and utilities for WebRTC. 
+this package tests webRTC capabilities by trying to use the webRTC functionalities. This also packs some utilities to make developer's live easier while making webRTC tools. 
+
+## What It's not: 
+This is not a replacement of [Modernizr](https://modernizr.com/) or similar tools. This will not check if a feature is supported by the browser. For example a browser might have support for `getUserMedia`. Which Modernizr or similar tool will find out. But having support for `getUserMedia` does not mean that the user is guaranteed to access the feature. Maybe the user does not have a webcam, or the user's audio input device might be broken.
+
+Or in a different scenario, maybe the users's firewall will block any Peer connection and you need to know if the user's internet connection supports peer connection. 
+
+this package will help you test for these real life scenarios in your webRTC application.
+
+> Please include the [webRTC Adapter](https://www.npmjs.com/package/webrtc-adapter) package in  your project. This plugin tries to cover most of the variations of the API but adapter covers almost all of it. 
 
 ## Installation:
 
@@ -16,7 +25,7 @@ import _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@1.2.0/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@1.2.1/dist/index.js"></script>
 ```
 Yoou will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
