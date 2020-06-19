@@ -43,7 +43,6 @@ html,body{
     background-color: #fff;
     margin-bottom: 5px;
     border-radius: 2px;
-    width: 80vw;
     .status{
         margin: 0.5em;
         width: 1.2em;
@@ -67,4 +66,5 @@ html,body{
 .start{
     padding: 0.5em 1em;
     margin-top: 10px;
+    cursor: pointer;
 }

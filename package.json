@@ -1,6 +1,6 @@
 {
   "name": "webrtc-test-suite",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "main": "index.js",
   "repository": "git@github.com:theanam/webrtc-test-suite.git",
   "homepage": "https://github.com/theanam/webrtc-test-suite",
@@ -27,9 +27,9 @@
     "watch": "parcel watch index.js",
     "build": "parcel build index.js",
     "run-example": "parcel test/index.html -d test-temp",
-    "build-example": "parcel build test/index.html -d test-dist"
+    "build-example": "parcel build test/index.html -d test-dist --public-url /webrtc-test-suite"
   },
-  "browserlist": [
+  "browserslist": [
     "defaults",
     "not IE 11",
     "not IE_Mob 11"

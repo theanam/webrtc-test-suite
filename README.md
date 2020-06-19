@@ -1,6 +1,8 @@
 # Real life Capability testing and utilities for WebRTC. 
  Testing webRTC capabilities by trying to use them. Not a feature detector. A capability tester.Also packs some utilities to make developer's live easier while making webRTC tools. 
 
+## [Test Your Browser](https://theanam.github.io/webrtc-test-suite)
+
 ## What It's not: 
 This is not a replacement of [Modernizr](https://modernizr.com/) or similar tools. This will not check if a feature is supported by the browser. For example a browser might have support for `getUserMedia`. Which Modernizr or similar tool will find out. But having support for `getUserMedia` does not mean that the user is guaranteed to access the feature. Maybe the user does not have a webcam, or the user's audio input device might be broken.
 
@@ -32,7 +34,7 @@ import _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@1.2.3/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@1.2.4/dist/index.js"></script>
 ```
 Yoou will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
