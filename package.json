@@ -12,7 +12,11 @@
     "browser compatibility",
     "getusermedia",
     "rtcpeerconnection",
-    "hardware test"
+    "hardware test",
+    "getusermedia",
+    "testusermedia",
+    "mediadevices",
+    "real time"
   ],
   "devDependencies": {
     "parcel-bundler": "^1.12.4"

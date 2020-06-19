@@ -1,37 +1,148 @@
 # webrtc-test-suite
-Testing suite for Real life webRTC capability testing
+Real life WebRTC capability testing and utilities.
 
-## this is a work in progress
+## Installation:
 
-## How to use: 
-To install the package use this command: 
-### Module Bundler
+### Using a package manager:
+To install the package use this command. 
 ```sh
 yarn add webrtc-test-suite
 ```
-If you are using a module bundler, you can import it with: 
+Then you can import it in your code like this:
 ```js
 import _rtc from "webrtc-test-suite";
 ```
-### Include JS file 
+
+### Including the JS file directly:
 Add this to your HTML file:
 ```html
 <script src="https://unpkg.com/webrtc-test-suite@1.2.0/dist/index.js"></script>
 ```
-Yoou will get a global object called: `_rtc`
+Yoou will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
-All the check functions return a promise.
+## How to use
+This tool comes with a lot of capability test and utility functions. You can use them to create WebRTC enabled application and positively determine feature support. All the functions are described below.
+
+> Functions that return a promise has a `silent` version that does not reject the promise on error. Instead returns null. Good for working with `async-await`.
+
+> Functions that accepts the `verbose` (Boolean) argument, will generate logs in the console if `verbose` is set to `true`. Default is `false`.
+
+### `checkMediaCapture` and `checkMediaCaptureSilent`:
+> `checkMediaCapture(constraints, [verbose = false]); // Returns Promise`
+
+Example Use: 
 ```js
-// Function signatures: 
-// check peer connection capabilities
-_rtc.checkPeerConnection(iceConfiguration,verbose[boolean]) // all the params are optional. If you chose to go verbose, pass a blank obe. Verbose creates logs
-// Check media capture
-_rtc.checkMediaCapture(mediaConstraints,verbose[boolean]) // Constraints is required. Verbose creates logs
-// make sure testDownload is a file and can be downloaded with AJAX (this test uses fetch)
-_rtc.checkInternetSpeed(testDownload,verbose[boolean]) // testDownload is required, return value in Mbps (Megabits Per second)
-_rtc.countDevices([verbose = false]) // counts the number of audio video input output devices
+_rtc.checkMediaCapture({audio: true, video: true})
+    .then(()=>console.log("Could capture media stream"))
+    .catch(()=>console.error("Could not capture media stream"));
 ```
-## A better documentation is comming soon
+This function takes [MediaTrackConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) as argument, calls `getUserMedia` API with those constraints, retrieves the Media stream, Checks if audio and video stream is active and according to the [constraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) provided. Then automatically stops the media capture and returns the result.
+
+### `checkPeerConnection` and `checkPeerConnectionSilent`:
+> `checkPeerConnection(RTCConfiguration, [verbose = false]) // Returns Promise`
+
+Example Use: 
+```js
+_rtc.checkPeerConnection({})
+    .then(()=>console.log("Peer connection works"))
+    .catch(()=>console.log("Peer connection does not work"));
+```
+This function takes [RTCConfiguration](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCConfiguration_dictionary) as argument Creates two `RTCPeerConnection` with the provided RTCConfiguration and creates a data channel between those two. Check if data transfer is possible between the two `RTCPeerConnection` instances. And returns the results. 
+
+> Tip: If you want to test your STUN (relay) server, pass `iceTransportPolict: "relay"` ([See Documentation](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCIceTransportPolicy_enum)) with your RTCConfiguration. This will force the two PeerConnection to communicate through the relay server. 
+
+### `checkInternetSpeed` and `checkInternetSpeedSilent`:
+> `checkInternetSpeed("probe/file.url", [verbose]) // Returns Promise`
+
+Example use: 
+```js
+_rtc.checkInternetSpeed("https://example-file.com/file.jpg")
+    .then(speed=>console.log(`Your speed is ${speed}mbps`))
+    .catch(()=>console.log("could not test Internet Speed"))
+```
+This function takes a file URL (Give at least >1mb for better results), somewhere in the web (better if it's in the same server as your TURN server), downloads the file and observes the download speed. This function makes use of the `fetch` API, so won't work with browsers that doesn't have `fetch` support (you can use a polyfill). This function returns the internet speed in `mbps`.
+
+ One might Argue, Internet speed is not part of WebRTC. Well, If you don't have a decent internet connection WebRTC applications might now work. And it's always good to know if it will work or not. Hence, this function got a place here. 
+
+ > Make sure the file you supplied isn't too large >2mb and also make sure the file is CORS enabled (has `access-control-allow-origin` header);
+
+ ### `countDevies` and `countDeviesSilent`:
+ > `countDevies([verbose = false]) // Returns Promise`
+
+Example use:
+```js
+_rtc.countDevices()
+    .then(result=>console.log(`You have ${result.audio.in} audio input devices`)
+    .catch(()=>console.log("device count failed"));
+```
+ This function counts all the audio video input output devices available(sort of).It returns an object like this: 
+```js
+{
+    audio   : {in: 0, out: 0},
+    video   : {in: 0, out: 0},
+    unknown : 0
+}
+```
+> A point to note here: The current API does not give a count of video output devices, so the count will always be 0. The value is put there just for aesthetics. Besides, if you can see the output on your display, You definitely have at least one video output, so nothing to freak out 🤞🏼
+
+## Utility Functions:
+This tool also comes with some utility functions for the app developer's convenience. The functions were made for internal use of the tool and then provided for the end user. 
+
+### `getUserMedia` and `getUserMediaSilent`: 
+
+> `getUserMedia(constraints, [verbose]) // Returns Promise`
+
+Example use: 
+```js
+_rtc.getUserMedia(MediaTrackConstraints)
+    .then(stream=>{
+        document.querySelector(".video").srcObject = stream;
+    })
+    .catch(()=>console.log("could not get media stream"));
+```
+If you are tired of handling different versions of `getUserMedia`, `webkitGetUserMedia` and the latest `mediaDevices.getUserMedia`, this function handles it for you. No matter what version of the API your browser supports, this function will call that version of the API and returns a promise with your media stream (or error). 
+
+this function takes [MediaTrackConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) as argument.
+
+### The `utils` object: 
+Smaller utilities are in the utils object. Mostly related to webRTC.
+
+#### `utils.flat`: 
+> Returns Promise
+
+this function takes a **promise as argument** and returns **another promise**. If the source promise is resolved, this functions's promise resolves with the result. If the source promise is rejected. This function's promise resoves with `null`. If you are working with `async-await` this will save you a lot of `try-catch` block. This works with any types of promises. This function is used to generate all the `silent` versions of this tool.
+
+#### `utils.dom`: 
+This consists of two functions. Both are used to attach and detatch media stream to a dom element (`video` or `audio` tag). Why you may ask, because, new implementation has the `srcObject` property, older browsers had to use `createObjectURI` function to convert the stream into a Object URI. this will handle the variation for you.
+Both functions return the DOM element.
+##### `utils.dom.addStreamToDOM(domElement, stream)`: 
+Adds a media stream to a DOM element. Example use: 
+```js
+// Let's assume we got a media stream called `stream`
+let domElement = document.querySelector("video.test");
+_rtc.utils.dom.addStreamToDOM(domElement,stream);
+```
+##### `utils.dom.addStreamToDOM(domElement, stream)`: 
+Removes any media astream from DOM element. Example use: 
+```js
+// Let's assume we got a media stream called `stream`
+let domElement = document.querySelector("video.test");
+_rtc.utils.dom.removeStreamToDOM(domElement);
+```
+
+#### `utils.stream`:
+this object only contains one utility function now. This namespace is kept to add more functions later. 
+
+##### `utils.stream.stopMediaStream` and `utils.stream.stopMediaStreamSilent`:
+This function takes a media Stream and stops all the tracks associated with it. This also releases the input devices. This is the IDEAL way to stop a media stream once you are done with it.
+
+> this does not return a promise but the silent version is there to automatically handle any errors that may appear (since they are mostly non important)
+
+Example use: 
+```js
+// For example, if we have a media stream named `stream`.
+_rtc.utils.stream.stopMediaStreamSilent(stream);
+```
 
 *** 
 This package is released under the MIT license, feel free to contribute.

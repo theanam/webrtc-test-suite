@@ -1,14 +1,14 @@
-function addStreamToDOM(domel,stream){
-    if(!domel || !stream) return null;
-    if(domel.srcObject !== undefined) domel.srcObject = stream;
-    else domel.src = window.URL.createObjectURL(stream);
-    return domel;
+function addStreamToDOM(domElement,stream){
+    if(!domElement || !stream) return null;
+    if(domElement.srcObject !== undefined) domElement.srcObject = stream;
+    else domElement.src = window.URL.createObjectURL(stream);
+    return domElement;
 }
-function removeStreamFromDOM(domel){
-    if(!domel) return null;
-    if(domel.srcObject !== undefined) domel.srcObject = null;
-    else domel.src = "";
-    return domel;
+function removeStreamFromDOM(domElement){
+    if(!domElement) return null;
+    if(domElement.srcObject !== undefined) domElement.srcObject = null;
+    else domElement.src = "";
+    return domElement;
 }
 
 module.exports = {
