@@ -21,13 +21,15 @@ Add this to your HTML file:
 Yoou will get a global object called: `_RTCTest`
 
 All the check functions return a promise.
+```js
 // Function signatures: 
 // check peer connection capabilities
-checkPeerConnection(iceConfiguration,verbose[boolean]) // all the params are optional. Verbose creates logs
+checkPeerConnection(iceConfiguration,verbose[boolean]) // all the params are optional. If you chose to go verbose, pass a blank obe. Verbose creates logs
 // Check media capture
-checkMediaCapture(mediaConstraints,verbose[boolean]) // all the params are optional. Verbose creates logs
+checkMediaCapture(mediaConstraints,verbose[boolean]) // Constraints is required. Verbose creates logs
 // make sure testDownload is a file and can be downloaded with AJAX (this test uses fetch)
 checkInternetSpeed(testDownload,verbose[boolean]) // testDownload is required, return value in Mbps (Megabits Per second)
+countDevices([verbose = false]) // counts the number of audio video input output devices
 ```
 ## A better documentation is comming soon
 
