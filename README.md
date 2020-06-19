@@ -32,7 +32,7 @@ import _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@1.2.1/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@1.2.3/dist/index.js"></script>
 ```
 Yoou will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
@@ -80,8 +80,9 @@ This function takes a file URL (Give at least >1mb for better results), somewher
 
  One might Argue, Internet speed is not part of WebRTC. Well, If you don't have a decent internet connection WebRTC applications might now work. And it's always good to know if it will work or not. Hence, this function got a place here. 
 
- > Make sure the file you supplied isn't too large >2mb and also make sure the file is CORS enabled (has `access-control-allow-origin` header);
+ > Make sure the file you supplied isn't too large `>2mb` and also make sure the file is CORS enabled (has `access-control-allow-origin` header);
 
+**Please note:** The users's *actual* internet speed and speed measured here can be different. This measures internet speed between the user's computer and the server the file was in and can be affected by a lot of factors. In my testing roughly `~1mbps` speed was enough for a smooth video call.
 
  ### 4. `countDevies` and `countDeviesSilent`:
  > `countDevies([verbose = false]) // Returns Promise`
