@@ -3,19 +3,26 @@ import checkMediaCapture from "./checks/mediaCapture";
 import checkInternetSpeed from "./checks/internet";
 import countDevies from "./checks/count_devices";
 // Utils
-import p from "./utils/simplify_promise";
-import * as video from "./utils/tag_tools";
-
-let _RTCTest = {
+import flat from "./utils/simplify_promise";
+import * as av from "./utils/dom_tag_tools";
+import getUserMedia from "./utils/user_media";
+// Exports
+let _rtc = {
     checkPeerConnection,
     checkMediaCapture,
     checkInternetSpeed,
     countDevies,
+    getUserMedia,
+    checkPeerConnectionSilent(){return flat(checkPeerConnection(...arguments))},
+    checkMediaCaptureSilent(){return flat(checkMediaCapture(...arguments))},
+    checkInternetSpeedSilent(){return flat(checkInternetSpeed(...arguments))},
+    countDeviesSilent(){return flat(countDevies(...arguments))},
+    getUserMediaSilent(){return flat(getUserMedia(...arguments))},
     utils: {
-        p,
-        video
+        flat,
+        av
     }
 }
-if(typeof window !== "undefined") window._RTCTest = _RTCTest;
+if(typeof window !== "undefined") window._rtc = _rtc;
 
-export default _RTCTest;
+export default _rtc;

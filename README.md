@@ -11,25 +11,25 @@ yarn add webrtc-test-suite
 ```
 If you are using a module bundler, you can import it with: 
 ```js
-import _RTCTest from "webrtc-test-suite";
+import _rtc from "webrtc-test-suite";
 ```
 ### Include JS file 
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@1.1.0/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@1.2.0/dist/index.js"></script>
 ```
-Yoou will get a global object called: `_RTCTest`
+Yoou will get a global object called: `_rtc`
 
 All the check functions return a promise.
 ```js
 // Function signatures: 
 // check peer connection capabilities
-checkPeerConnection(iceConfiguration,verbose[boolean]) // all the params are optional. If you chose to go verbose, pass a blank obe. Verbose creates logs
+_rtc.checkPeerConnection(iceConfiguration,verbose[boolean]) // all the params are optional. If you chose to go verbose, pass a blank obe. Verbose creates logs
 // Check media capture
-checkMediaCapture(mediaConstraints,verbose[boolean]) // Constraints is required. Verbose creates logs
+_rtc.checkMediaCapture(mediaConstraints,verbose[boolean]) // Constraints is required. Verbose creates logs
 // make sure testDownload is a file and can be downloaded with AJAX (this test uses fetch)
-checkInternetSpeed(testDownload,verbose[boolean]) // testDownload is required, return value in Mbps (Megabits Per second)
-countDevices([verbose = false]) // counts the number of audio video input output devices
+_rtc.checkInternetSpeed(testDownload,verbose[boolean]) // testDownload is required, return value in Mbps (Megabits Per second)
+_rtc.countDevices([verbose = false]) // counts the number of audio video input output devices
 ```
 ## A better documentation is comming soon
 
