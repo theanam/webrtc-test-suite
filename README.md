@@ -34,7 +34,7 @@ import _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@1.2.4/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@1.2.5/dist/index.js"></script>
 ```
 Yoou will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
@@ -86,7 +86,7 @@ This function takes a file URL (Give at least >1mb for better results), somewher
 
 **Please note:** The users's *actual* internet speed and speed measured here can be different. This measures internet speed between the user's computer and the server the file was in and can be affected by a lot of factors. In my testing roughly `~1mbps` speed was enough for a smooth video call.
 
- ### 4. `countDevies` and `countDeviesSilent`:
+### 4. `countDevies` and `countDeviesSilent`:
  > `countDevies([verbose = false]) // Returns Promise`
 
 Example use:
@@ -169,4 +169,4 @@ _rtc.utils.stream.stopMediaStreamSilent(stream);
 *** 
 This package is released under the MIT license, feel free to contribute.
 
-made with 🖤 and JavaScript.
+made with 🖤 and JavaScript by Anam Ahmed.
