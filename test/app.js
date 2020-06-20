@@ -14,7 +14,7 @@ function no(base,message){
     base.find(".message").html(message);
 }
 function init(){
-    let verbose = false;
+    let verbose = true;
     let pc = $(".peerconnection");
     loading(pc,"Testing Peer Connection");
     _rtc.checkPeerConnection({},verbose).then(()=>yes(pc,"Peer connection Established")).catch(()=>no(pc,"Peer connection did not work"));
