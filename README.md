@@ -34,7 +34,7 @@ import _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@1.2.5/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@1.2.6/dist/index.js"></script>
 ```
 Yoou will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
@@ -103,7 +103,7 @@ _rtc.countDevices()
     unknown : 0
 }
 ```
-> A point to note here: The current API does not give a count of video output devices, so the count will always be 0. The value is put there just for aesthetics. Besides, if you can see the output on your display, You definitely have at least one video output, so nothing to freak out 🤞🏼
+> A point to note here: The current API does not give a count of video output devices In some cases doesn't give count for audio output devices too, so these counts will be 0 most of the time. The value is put there just for aesthetics. Besides, if you can see the output on your display, You definitely have at least one video output, so nothing to freak out 🤞🏼
 
 
 

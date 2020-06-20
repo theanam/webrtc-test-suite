@@ -35,20 +35,22 @@ html,body{
     padding: 0.6em;
     box-shadow: 1px 1px 4px 0px #999;
     border-radius: 2px;
+    max-width: 80vw;
 }
 .layer{
     display: flex;
     align-items: center;
-    padding: 0.4em 1em;
+    padding: 0.5em;
     background-color: #fff;
     margin-bottom: 5px;
     border-radius: 2px;
     .status{
         margin: 0.5em;
-        width: 1.2em;
-        height: 1.2em;
+        width: 20px;
+        height: 20px;
         background-color:$w;
         border-radius: 50%;
+        flex-shrink: 0;
         &.loading{
             border: 2px solid $basedark;
             border-right: 2px solid $w;

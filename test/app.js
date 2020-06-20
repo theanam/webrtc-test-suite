@@ -22,7 +22,7 @@ function init(){
     _rtc.checkInternetSpeed("test.png",true).then(speed=>yes(_net,`Your speed is ${speed}mbps with this server`)).catch(()=>no(_net,"Could not test internet speed"));
     let _cd = $(".count");
     loading(_cd,"Counting devices");
-    _rtc.countDevies(true).then(l=>yes(_cd,`You have ${l.audio.in} audio input, ${l.audio.out} audio output, ${l.video.in} video input`)).catch(e=>no(_cd,"Could not count hardware"));
+    _rtc.countDevies(true).then(l=>yes(_cd,`You have ${l.audio.in} audio input, ${l.video.in} video input`)).catch(e=>no(_cd,"Could not count hardware"));
     let um = $(".usermedia");
     loading(um,"Testing getUserMedia");
     _rtc.checkMediaCapture({audio:true, video: true},true).then(()=>yes(um,"Media Capture Successful")).catch(err=>no(um,"Media Capture failed"));
