@@ -1,6 +1,6 @@
 import getUserMedia from "../utils/user_media";
 import * as _stream from "../utils/media_stream_tools";
-export default function checkMediaCapture(constraints, verbose = false){
+export default function checkMediaCapture(constraints, verbose = false, getStream = false){
     return new Promise((resolve,reject)=>{
         if(!constraints.audio && !constraints.video) return reject(new Error("Constraints are not correct"));
         verbose && console.log(`[media-capture]: Requesting user media`);
@@ -17,11 +17,23 @@ export default function checkMediaCapture(constraints, verbose = false){
                         return (_track.readyState === "live");
                     });
                     verbose && console.log(`[media-capture]: Received ${tracks.length} track(s)`);
-                    verbose && console.log(`[media-capture]: Stopping media track(s)`);
-                    _stream.stopMediaStream(stream);
-                    if(!functional) return reject(new Error("All requested tracks are not active"));
-                    if(constraints.video && !videoTrack) return reject(new Error("Video Track not found"));
-                    if(constraints.audio && !audioTrack) return reject(new Error("Audio Track not found"));
+                    if(!functional){
+                        _stream.stopMediaStream(stream);
+                        return reject(new Error("All requested tracks are not active"));
+                    } 
+                    if(constraints.video && !videoTrack) {
+                        _stream.stopMediaStream(stream);
+                        return reject(new Error("Video Track not found"));
+                    }
+                    if(constraints.audio && !audioTrack){
+                        _stream.stopMediaStream(stream);
+                        return reject(new Error("Audio Track not found"));
+                    } 
+                    if(!getStream){
+                        verbose && console.log(`[media-capture]: Stopping media track(s)`);
+                        _stream.stopMediaStream(stream);
+                    }
+                    if(getStream) return resolve(stream);
                     return resolve(true);
                 }
             })

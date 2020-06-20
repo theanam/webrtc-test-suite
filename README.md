@@ -26,7 +26,7 @@ import _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@1.2.9/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@1.2.10/dist/index.js"></script>
 ```
 Yoou will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
@@ -83,7 +83,7 @@ All the options can have these values:
 
 
 ### 1. `checkMediaCapture` and `checkMediaCaptureSilent`:
-> `checkMediaCapture(constraints, [verbose = false]); // Returns Promise`
+> `checkMediaCapture(constraints, [verbose = false], [getStream = false]); // Returns Promise`
 
 Example Use: 
 ```js
@@ -91,7 +91,7 @@ _rtc.checkMediaCapture({audio: true, video: true})
     .then(()=>console.log("Could capture media stream"))
     .catch(()=>console.error("Could not capture media stream"));
 ```
-This function takes [MediaTrackConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) as argument, calls `getUserMedia` API with those constraints, retrieves the Media stream, Checks if audio and video stream is active and according to the [constraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) provided. Then automatically stops the media capture and returns the result.
+This function takes [MediaTrackConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) as argument, calls `getUserMedia` API with those constraints, retrieves the Media stream, Checks if audio and video stream is active and according to the [constraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) provided. Then automatically stops the media capture and returns the result. If `getStream` is set to true, the `mediaStream` is not stopped, it's returned instead, on success.
 
 ### 2. `checkPeerConnection` and `checkPeerConnectionSilent`:
 > `checkPeerConnection(RTCConfiguration, [verbose = false]) // Returns Promise`
