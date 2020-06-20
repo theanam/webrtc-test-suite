@@ -18,6 +18,11 @@ export default function getUserMedia(constraints, verbose = false){
             navigator.webkitGetUserMedia(constraints, _success, _err);
             gum = "webkitGetUserMedia";
         } 
+        else if(navigator.mozGetUserMedia){
+            verbose && console.log(`[get-user-media]: Using navigator.mozGetUserMedia`);
+            navigator.mozGetUserMedia(constraints, _success, _err);
+            gum = "mozGetUserMedia";
+        } 
         if(!gum) return reject(new Error("No version of getusermedia was found"));
         if(gum.then) gum.then(resolve);
         if(gum.catch) gum.catch(reject);

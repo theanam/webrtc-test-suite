@@ -3,16 +3,8 @@
 
 ## 🚀 [Test Your Browser](https://theanam.github.io/webrtc-test-suite)
 
-## What It's not: 
-This is not a replacement of [Modernizr](https://modernizr.com/) or similar tools. This will not check if a feature is supported by the browser. For example a browser might have support for `getUserMedia`. Which Modernizr or similar tool will find out. But having support for `getUserMedia` does not mean that the user is guaranteed to access the feature. Maybe the user does not have a webcam, or the user's audio input device might be broken.
-
-Or in a different scenario, maybe the users's firewall will block any Peer connection and you need to know if the user's internet connection supports peer connection. 
-
-this package will help you test for these real life scenarios in your webRTC application.
-
-> Please include the [webRTC Adapter](https://www.npmjs.com/package/webrtc-adapter) package in  your project. This plugin tries to cover most of the variations of the API but adapter covers almost all of it. 
 ## What Can It do
-
+* Test basic feature support.
 * Test If `getUserMedia` Actually works.
 * Test if the browser and internet is capable of `RTCPeerConnection`
 * Test if the internet Speed is good enough for WebRTC streaming.
@@ -34,16 +26,61 @@ import _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@1.2.8/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@1.2.9/dist/index.js"></script>
 ```
 Yoou will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
 ## How to use
 This tool comes with a lot of capability test and utility functions. You can use them to create WebRTC enabled application and positively determine feature support. All the functions are described below.
 
+> Please include the [webRTC Adapter](https://www.npmjs.com/package/webrtc-adapter) package in  your project. This plugin tries to cover most of the variations of the API but adapter covers almost all of it. 
+
 > Functions that return a promise has a `silent` version that does not reject the promise on error. Instead returns null. Good for working with `async-await`.
 
 > Functions that accepts the `verbose` (Boolean) argument, will generate logs in the console if `verbose` is set to `true`. Default is `false`.
+### 0. `checkFeatureSupport`: 
+> Please note: *Feaeture detection is not the primary objective of this tool, Detecting if the feature actually works is the primary objective. Feature detection is provided just as an additional tool*
+
+> `checkFeatureSupport([verbose = false]) // Returns result object`.
+
+This is the newest addition to this tool in version 1.2.9. This checks for the feature support in the browser. (e.g: if the browser supports HTML5 video and Audio elements or `RTCPeerConnection`). Much like [Modernizr](https://modernizr.com/). This wasn't primarily intended to be in this package since there's already tool like [Modernizr](https://modernizr.com/) that does this job really well. But since this detection is intended to be used internally, and it's always good to have one less dependency. It returns an output like this: 
+
+```js
+{
+        video : {
+            basic    : true
+        },
+        audio : {
+            basic    : true,
+            webAudio : true
+        },
+        rtcPeerConnection : true,
+        rtcDataChannel    : false,
+        getUserMedia      : "prefix-webkit",
+        getDisplayMedia   : false
+    }
+```
+Checks available: 
+
+| Check | Meaning |
+|-------|---------|
+|video.basic|Basic HTML5 Video Support|
+|audio.basic|Basic HTML5 Audio Support|
+|audio.webAudio|Support for Web Audio API|
+|rtcPeerConnection|Support for RTCPeerConnection API|
+|rtcDataChannel|Support for RTC Data Channel API|
+|getUserMedia|Support for the Audio Video Capture|
+|getDisplayMedia|Support for Screen Capture|
+
+
+All the options can have these values:
+|Value | Meaning        |
+|------|----------------|
+|false | Unsupported    |
+|"old" | Supported, but with older version of the API |
+|"prefix-webkit"| Supported with `webkit` prefix|
+|"prefix-moz"| Supported with `moz` prefix |
+
 
 ### 1. `checkMediaCapture` and `checkMediaCaptureSilent`:
 > `checkMediaCapture(constraints, [verbose = false]); // Returns Promise`

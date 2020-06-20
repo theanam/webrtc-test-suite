@@ -2,6 +2,7 @@ import checkPeerConnection from "./checks/peerConnection";
 import checkMediaCapture from "./checks/mediaCapture";
 import checkInternetSpeed from "./checks/internet";
 import countDevies from "./checks/count_devices";
+import checkFeatureSupport from "./checks/feature_support";
 // Utils
 import flat from "./utils/simplify_promise";
 import * as dom from "./utils/dom_tag_tools";
@@ -14,6 +15,7 @@ let _rtc = {
     checkInternetSpeed,
     countDevies,
     getUserMedia,
+    checkFeatureSupport,
     checkPeerConnectionSilent(){return flat(checkPeerConnection(...arguments))},
     checkMediaCaptureSilent(){return flat(checkMediaCapture(...arguments))},
     checkInternetSpeedSilent(){return flat(checkInternetSpeed(...arguments))},
