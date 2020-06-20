@@ -7,16 +7,15 @@ export default function checkInternetSpeed(checkerFile, verbose = false){
         let glue = /\?/.test(checkerFile)?"&":"?"; // if the file path already has query params
         fetch(`${checkerFile}${glue}rtccheckertimestamp_noconflict=${startTime}`) // to avoid cache
             .then(resp=>{
-                if(resp.status !== 200) return reject(new Error("Could not load the checker file"));
+                if(resp.status !== 200) return reject(new Error("Error loading the checker file"));
                 return resp.blob();
-            })
-            .then(bl=>{
+            }).then(bl=>{
                 verbose && console.log(`[internet-connection]: Fetched the checker file`);
                 let endTime  = Date.now();
                 let timeDiff = (endTime - startTime) / 1000; //convert millesecond diff to seconds
                 let fileSize = bl.size * 8; // bits
                 let bps      = fileSize / timeDiff;
-                let mbps     = (bps / 1048576).toFixed(2); // 1024*1024
+                let mbps     = (bps / 1048576).toFixed(2); // 1024*1024 = 1048576
                 verbose && console.log(`[internet-connection]: Speed observed: ${mbps}mbps`);
                 return resolve(mbps);
             })
