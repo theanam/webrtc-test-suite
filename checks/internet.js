@@ -6,7 +6,10 @@ export default function checkInternetSpeed(checkerFile, verbose = false){
         let startTime = Date.now();
         let glue = /\?/.test(checkerFile)?"&":"?"; // if the file path already has query params
         fetch(`${checkerFile}${glue}rtccheckertimestamp_noconflict=${startTime}`) // to avoid cache
-            .then(resp=>resp.blob())
+            .then(resp=>{
+                if(resp.status !== 200) return reject(new Error("Could not load the checker file"));
+                return resp.blob();
+            })
             .then(bl=>{
                 verbose && console.log(`[internet-connection]: Fetched the checker file`);
                 let endTime  = Date.now();
