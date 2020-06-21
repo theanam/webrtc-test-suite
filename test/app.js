@@ -1,5 +1,5 @@
-import _rtc from "../index";
 import $ from "jquery";
+import * as _rtc from "../dist/index";
 
 function loading(base,message){
     base.find(".status").addClass("loading");
@@ -33,4 +33,4 @@ document.querySelector(".start").addEventListener("click",init);
 
 $(function(){
     console.log(_rtc.checkFeatureSupport());
-})
+});

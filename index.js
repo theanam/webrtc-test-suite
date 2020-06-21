@@ -8,24 +8,29 @@ import flat from "./utils/simplify_promise";
 import * as dom from "./utils/dom_tag_tools";
 import getUserMedia from "./utils/user_media";
 import * as mediaStream from "./utils/media_stream_tools";
+// Utils function
+const checkPeerConnectionSilent=function(rtcConfig = {}, verbose = false){return flat(checkPeerConnection(rtcConfig, verbose))};
+const checkMediaCaptureSilent=function(constraints, verbose = false, getStream = false){return flat(checkMediaCapture(constraints, verbose, getStream))};
+const checkInternetSpeedSilent=function(checkerFile, verbose = false){return flat(checkInternetSpeed(checkerFile, verbose))};
+const countDeviesSilent=function(verbose = false){return flat(countDevies(verbose))};
+const getUserMediaSilent=function(constraints, verbose = false){return flat(getUserMedia(constraints, verbose))};
+const utils = {
+    flat,
+    dom,
+    stream: mediaStream
+}
 // Exports
-let _rtc = {
+export {
     checkPeerConnection,
     checkMediaCapture,
     checkInternetSpeed,
     countDevies,
     getUserMedia,
     checkFeatureSupport,
-    checkPeerConnectionSilent(rtcConfig = {}, verbose = false){return flat(checkPeerConnection(rtcConfig, verbose))},
-    checkMediaCaptureSilent(constraints, verbose = false, getStream = false){return flat(checkMediaCapture(constraints, verbose, getStream))},
-    checkInternetSpeedSilent(checkerFile, verbose = false){return flat(checkInternetSpeed(checkerFile, verbose))},
-    countDeviesSilent(verbose = false){return flat(countDevies(verbose))},
-    getUserMediaSilent(constraints, verbose = false){return flat(getUserMedia(constraints, verbose))},
-    utils: {
-        flat,
-        dom,
-        stream: mediaStream
-    }
+    checkPeerConnectionSilent,
+    checkMediaCaptureSilent,
+    checkInternetSpeedSilent,
+    countDeviesSilent,
+    getUserMediaSilent,
+    utils
 }
-if(typeof window !== "undefined") window._rtc = _rtc;
-export default _rtc;
