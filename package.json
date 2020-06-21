@@ -1,6 +1,6 @@
 {
   "name": "webrtc-test-suite",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "main": "dist/index.js",
   "source": "index.js",
   "repository": "git@github.com:theanam/webrtc-test-suite.git",

@@ -26,7 +26,7 @@ import * as _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@2.0.0/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@2.0.1/dist/index.js"></script>
 ```
 You will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
