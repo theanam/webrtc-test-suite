@@ -17,7 +17,7 @@ export default function checkInternetSpeed(checkerFile, verbose = false){
                 let bps      = fileSize / timeDiff;
                 let mbps     = (bps / 1048576).toFixed(2); // 1024*1024 = 1048576
                 verbose && console.log(`[internet-connection]: Speed observed: ${mbps}mbps`);
-                return resolve(mbps);
+                return resolve(parseFloat(mbps));
             })
             .catch(reject);
     });

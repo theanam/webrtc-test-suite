@@ -26,7 +26,7 @@ import * as _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@2.0.1/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@2.1.0/dist/index.js"></script>
 ```
 You will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
@@ -83,7 +83,7 @@ All the options can have these values:
 
 
 ### 1. `checkMediaCapture` and `checkMediaCaptureSilent`:
-> `checkMediaCapture(constraints, [verbose = false], [getStream = false]); // Returns Promise`
+> `checkMediaCapture(constraints, [verbose = false,getStream = false, timeout = 60000]); // Returns Promise`
 
 Example Use: 
 ```js
@@ -94,7 +94,7 @@ _rtc.checkMediaCapture({audio: true, video: true})
 This function takes [MediaTrackConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) as argument, calls `getUserMedia` API with those constraints, retrieves the Media stream, Checks if audio and video stream is active and according to the [constraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) provided. Then automatically stops the media capture and returns the result. If `getStream` is set to true, the `mediaStream` is not stopped, it's returned instead, on success.
 
 ### 2. `checkPeerConnection` and `checkPeerConnectionSilent`:
-> `checkPeerConnection(RTCConfiguration, [verbose = false]) // Returns Promise`
+> `checkPeerConnection(RTCConfiguration, [verbose = false, timeout = 30000]) // Returns Promise`
 
 Example Use: 
 ```js
@@ -106,7 +106,28 @@ This function takes [RTCConfiguration](https://developer.mozilla.org/en-US/docs/
 
 > Tip: If you want to test your STUN (relay) server, pass `iceTransportPolict: "relay"` ([See Documentation](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCIceTransportPolicy_enum)) with your RTCConfiguration. This will force the two PeerConnection to communicate through the relay server. 
 
-### 3. `checkInternetSpeed` and `checkInternetSpeedSilent`:
+### 3. `checkRelayPerformance` and `checkRelayPerformanceSilent`:
+> `checkRelayPerformance(RTCConfiguration, [verbose = false, timeout = 30000]) // Returns Promise`
+
+Example Use: 
+```js
+_rtc.checkRelayPerformance(rtcConfig)
+    .then(()=>console.log("Peer connection works"))
+    .catch(()=>console.log("Peer connection does not work"));
+```
+This function takes [RTCConfiguration](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCConfiguration_dictionary) as argument. Which is mandatory.It also requires the user to supply at least one TURN server configuration, Against which the performance will be measured.This creates two `RTCPeerConnection` with the provided RTCConfiguration and creates a data channel between those two. Then transfers a relatively large random data between the two over the relay server, measures how much time it took to transfer the data. And returns the results. 
+
+Sample Output:
+
+```js
+{
+    elapsed : 305, // ms
+    speed   : 5.8  // mbps
+}
+```
+> If you are willing to run this test, you can `checkPeerConnection`. Also it shows an estimated result of what was observed at that time. 
+
+### 4. `checkInternetSpeed` and `checkInternetSpeedSilent`:
 > `checkInternetSpeed("probe/file.url", [verbose]) // Returns Promise`
 
 Example use: 
@@ -123,7 +144,11 @@ This function takes a file URL (Give at least >1mb for better results), somewher
 
 **Please note:** The users's *actual* internet speed and speed measured here can be different. This measures internet speed between the user's computer and the server the file was in and can be affected by a lot of factors. In my testing roughly `~1mbps` speed was enough for a smooth video call.
 
-### 4. `countDevies` and `countDeviesSilent`:
+> Also, transfer rate over WebRTC can be significantly different from the measured internet speed, as it may or may not involve the server and may use a different protocol.
+
+> This function can only give and estimate of the observed download speed. Upload speed is not measured. 
+
+### 5. `countDevies` and `countDeviesSilent`:
  > `countDevies([verbose = false]) // Returns Promise`
 
 Example use:
@@ -142,9 +167,10 @@ _rtc.countDevices()
 ```
 > A point to note here: The current API does not give a count of video output devices In some cases doesn't give count for audio output devices too, so these counts will be 0 most of the time. The value is put there just for aesthetics. Besides, if you can see the output on your display, You definitely have at least one video output, so nothing to freak out 🤞🏼
 
+## Utilities
+These functions are internally used and are exposed to make RTC application development easier.
 
-
-### 5. `getUserMedia` and `getUserMediaSilent`: 
+### 6. `getUserMedia` and `getUserMediaSilent`: 
 
 > `getUserMedia(constraints, [verbose]) // Returns Promise`
 
@@ -159,8 +185,12 @@ _rtc.getUserMedia(MediaTrackConstraints)
 If you are tired of handling different versions of `getUserMedia`, `webkitGetUserMedia` and the latest `mediaDevices.getUserMedia`, this function handles it for you. No matter what version of the API your browser supports, this function will call that version of the API and returns a promise with your media stream (or error). 
 
 this function takes [MediaTrackConstraints](https://developer.mozilla.org/en-US/docs/Web/API/MediaTrackConstraints) as argument.
+### 7. `createRTCPeerConnection`: 
+> `createRTCPeerConnection(peerConfiguration)`
 
-## Utility Functions:
+This function creates a new RTCPeerConnection instance. It handles the API variations of `RTCPeerConnection`, `webkitRTCPeerConnection` and `mozRTCPeerConnection`. Returns `null` if none are supported.
+
+## Misc Utility Functions:
 This tool also comes with some utility functions for the app developer's convenience. The functions were made for internal use of the tool and then provided for the end user. 
 
 ### The `utils` object: 

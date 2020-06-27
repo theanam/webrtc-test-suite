@@ -34,6 +34,8 @@ export default function checkFeatureSupport(verbose = false){
     // check RTCPeerConnection
     verbose && console.log(`[feature-test] Checking for rtcPeerConnection`);
     if("RTCPeerConnection" in window) result.rtcPeerConnection = true;
+    else if("webkitRTCPeerConnection" in window) result.rtcPeerConnection = "prefix-webkit";
+    else if("mozRTCPeerConnection" in window) result.rtcPeerConnection = "prefix-moz";
     // check RTCDataChannel
     if(!result.rtcPeerConnection) result.rtcDataChannel = false;
     else {
