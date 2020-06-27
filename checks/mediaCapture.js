@@ -4,7 +4,7 @@ export default function checkMediaCapture(constraints, verbose = false, getStrea
     return new Promise((resolve,reject)=>{
         if(!constraints.audio && !constraints.video) return reject(new Error("Constraints are not correct"));
         verbose && console.log(`[media-capture]: Requesting user media`);
-        let _to         = null;
+        let _to = null;
         if(timeout && Number.isInteger(timeout)) _to = setTimeout(()=>reject(new Error(`Timeout of ${timeout}ms reached`)), timeout);
         getUserMedia(constraints, verbose)
             .then(stream=>{

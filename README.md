@@ -26,7 +26,7 @@ import * as _rtc from "webrtc-test-suite";
 ### Including the JS file directly:
 Add this to your HTML file:
 ```html
-<script src="https://unpkg.com/webrtc-test-suite@2.1.0/dist/index.js"></script>
+<script src="https://unpkg.com/webrtc-test-suite@2.1.1/dist/index.js"></script>
 ```
 You will get a global object called: `_rtc`. And you can access all the functionalities from that object.
 
@@ -38,6 +38,8 @@ This tool comes with a lot of capability test and utility functions. You can use
 > Functions that return a promise has a `silent` version that does not reject the promise on error. Instead returns null. Good for working with `async-await`.
 
 > Functions that accepts the `verbose` (Boolean) argument, will generate logs in the console if `verbose` is set to `true`. Default is `false`.
+
+> Function that accepts a timeout, that will automatically reject if the internal request does not fulfill before time. setting the timeout to `0` will disable timeout. The default timeout for peer connection related functions is 30000ms (30 seconds) and for media capture is 60000ms (1 minute).
 ### 0. `checkFeatureSupport`: 
 > Please note: *Feaeture detection is not the primary objective of this tool, Detecting if the feature actually works is the primary objective. Feature detection is provided just as an additional tool*
 

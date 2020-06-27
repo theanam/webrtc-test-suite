@@ -11,12 +11,12 @@ import getUserMedia from "./utils/user_media";
 import * as mediaStream from "./utils/media_stream_tools";
 import createRTCPeerConnection from "./utils/peerconn";
 // Utils function
-const checkPeerConnectionSilent=function(rtcConfig = {}, verbose = false){return flat(checkPeerConnection(rtcConfig, verbose))};
-const checkMediaCaptureSilent=function(constraints, verbose = false, getStream = false){return flat(checkMediaCapture(constraints, verbose, getStream))};
+const checkPeerConnectionSilent=function(rtcConfig = {}, verbose = false, timeout = 30000){return flat(checkPeerConnection(rtcConfig, verbose, timeout))};
+const checkMediaCaptureSilent=function(constraints, verbose = false, getStream = false, timeout = 60000){return flat(checkMediaCapture(constraints, verbose, getStream, timeout))};
 const checkInternetSpeedSilent=function(checkerFile, verbose = false){return flat(checkInternetSpeed(checkerFile, verbose))};
 const countDeviesSilent=function(verbose = false){return flat(countDevies(verbose))};
 const getUserMediaSilent=function(constraints, verbose = false){return flat(getUserMedia(constraints, verbose))};
-const checkRelayPerformanceSilent=function(rtcConfig, verbose, timeout){return flat(checkRelayPerformance(rtcConfig, verbose, timeout))};
+const checkRelayPerformanceSilent=function(rtcConfig, verbose = false, timeout = 30000){return flat(checkRelayPerformance(rtcConfig, verbose, timeout))};
 const utils = {
     flat,
     dom,
