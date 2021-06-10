@@ -155,8 +155,8 @@ This function takes a file URL (Give at least >1mb for better results), somewher
 
 Example use:
 ```js
-_rtc.countDevices()
-    .then(result=>console.log(`You have ${result.audio.in} audio input devices`)
+_rtc.countDevies()
+    .then(result=>console.log(`You have ${result.audio.in} audio input devices`))
     .catch(()=>console.log("device count failed"));
 ```
  This function counts all the audio video input output devices available(sort of).It returns an object like this: 
