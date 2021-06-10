@@ -106,7 +106,7 @@ _rtc.checkPeerConnection({})
 ```
 This function takes [RTCConfiguration](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCConfiguration_dictionary) as argument Creates two `RTCPeerConnection` with the provided RTCConfiguration and creates a data channel between those two. Check if data transfer is possible between the two `RTCPeerConnection` instances. And returns the results. 
 
-> Tip: If you want to test your STUN (relay) server, pass `iceTransportPolict: "relay"` ([See Documentation](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCIceTransportPolicy_enum)) with your RTCConfiguration. This will force the two PeerConnection to communicate through the relay server. 
+> Tip: If you want to test your STUN (relay) server, pass `iceTransportPolicy: "relay"` ([See Documentation](https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/RTCPeerConnection#RTCIceTransportPolicy_enum)) with your RTCConfiguration. This will force the two PeerConnection to communicate through the relay server. 
 
 ### 3. `checkRelayPerformance` and `checkRelayPerformanceSilent`:
 > `checkRelayPerformance(RTCConfiguration, [verbose = false, timeout = 30000]) // Returns Promise`
@@ -136,7 +136,7 @@ Example use:
 ```js
 _rtc.checkInternetSpeed("https://example-file.com/file.jpg")
     .then(speed=>console.log(`Your speed is ${speed}mbps`))
-    .catch(()=>console.log("could not test Internet Speed"))
+    .catch(()=>console.log("could not test Internet Speed"));
 ```
 This function takes a file URL (Give at least >1mb for better results), somewhere in the web (better if it's in the same server as your TURN server), downloads the file and observes the download speed. This function makes use of the `fetch` API, so won't work with browsers that doesn't have `fetch` support (you can use a polyfill). This function returns the internet speed in `mbps`.
 
@@ -155,8 +155,8 @@ This function takes a file URL (Give at least >1mb for better results), somewher
 
 Example use:
 ```js
-_rtc.countDevices()
-    .then(result=>console.log(`You have ${result.audio.in} audio input devices`)
+_rtc.countDevies()
+    .then(result=>console.log(`You have ${result.audio.in} audio input devices`))
     .catch(()=>console.log("device count failed"));
 ```
  This function counts all the audio video input output devices available(sort of).It returns an object like this: 
